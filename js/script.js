@@ -6,7 +6,7 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     var audio = document.getElementById("my_audio");
-    audio.volume = 0.10; // Set the volume to 10% (minimum but audible)
+    audio.volume = 0.20; // Set the volume to 10% (minimum but audible)
     audio.play().catch(error => console.log("Autoplay blocked by browser:", error));
 });
 
