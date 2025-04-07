@@ -576,9 +576,33 @@ a {
 }
 
 .music {
-	display: none;
+	position: fixed;
+	top: 40%;
+	right: 100px;
+	color: #874562;
+	font-size: 32px;
+	cursor: pointer;
+	z-index: 1000;
+	background: white;
+	border-radius: 50%;
+	padding: 15px;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+	transition: transform 0.2s ease;
+	transform: translateY(-50%);
 }
 
+.music:hover {
+	transform: translateY(-50%) scale(1.1);
+}
+
+/* Responsive styles for phones and small screens */
+@media (max-width: 768px) {
+	.music {
+		right: 20px;         /* Less space on the right */
+		font-size: 24px;     /* Slightly smaller icon */
+		padding: 12px;       /* Less padding for compact look */
+	}
+}
 .actions {
 	display: flex;
 	font-size: 12px;
