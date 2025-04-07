@@ -69,10 +69,13 @@
       </div>
 
    </div>
-   <div class="music" onclick="toggleMute()">
-      <i class="fa fa-volume-up" id="volume-icon" aria-hidden="true"></i>
-      <audio src="./assets/mp3/songs.mp3" id="my_audio" autoplay loop></audio>
-   </div>
+   <div class="music" id="musicToggle">
+    <i class="fa fa-volume-up" id="volumeIcon"></i>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="./assets/mp3/songs.mp3" type="audio/mpeg">
+  </audio>
   
    <div id="time"></div>
    <p class="dance-med">
@@ -234,17 +237,39 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
    <script src="https://cdn.jsdelivr.net/gh/flouthoc/jquery-sakura/jquery.sakura.js"></script>
    <script>
-      const audio = document.getElementById("my_audio");
-      const icon = document.getElementById("volume-icon");
-  
-      // Start audio unmuted
-      audio.muted = false;
-  
-      function toggleMute() {
-        audio.muted = !audio.muted;
-        icon.className = audio.muted ? "fa fa-volume-off" : "fa fa-volume-up";
+    const audio = document.getElementById("bgMusic");
+    const icon = document.getElementById("volumeIcon");
+    const musicToggle = document.getElementById("musicToggle");
+
+    let isPlaying = false;
+
+    musicToggle.addEventListener("click", () => {
+      if (!isPlaying) {
+        audio.play().then(() => {
+          icon.className = "fa fa-volume-up";
+          isPlaying = true;
+        }).catch(err => {
+          console.error("Play failed:", err);
+        });
+      } else {
+        audio.pause();
+        icon.className = "fa fa-volume-off";
+        isPlaying = false;
       }
-    </script>
+    });
+
+    // Optional: Auto-play after first user interaction
+    document.body.addEventListener("click", () => {
+      if (!isPlaying) {
+        audio.play().then(() => {
+          icon.className = "fa fa-volume-up";
+          isPlaying = true;
+        }).catch(() => {
+          // Ignore autoplay fail
+        });
+      }
+    }, { once: true });
+  </script>
 
 </body>
 
